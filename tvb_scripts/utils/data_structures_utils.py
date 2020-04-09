@@ -1,14 +1,15 @@
 # coding=utf-8
 
-# Data structure manipulations and conversions
-from six import string_types
 import re
-import numpy as np
 from collections import OrderedDict
 from copy import deepcopy
-from tvb_scripts.utils.log_error_utils import warning, raise_value_error, raise_import_error, initialize_logger
-from tvb_scripts.config import CalculusConfig
 
+import numpy as np
+# Data structure manipulations and conversions
+from six import string_types
+from tvb.simulator.plot.config import CalculusConfig
+
+from tvb_scripts.utils.log_error_utils import warning, raise_value_error, raise_import_error, initialize_logger
 
 logger = initialize_logger(__name__)
 
@@ -280,7 +281,7 @@ def ensure_list(arg):
                 arg = [arg]
             elif hasattr(arg, "__iter__"):
                 arg = list(arg)
-            else: # if not iterable
+            else:  # if not iterable
                 arg = [arg]
         except:  # if not iterable
             arg = [arg]
@@ -331,7 +332,7 @@ def get_list_or_tuple_item_safely(obj, key):
 def delete_list_items_by_indices(lin, inds, start_ind=0):
     lout = []
     for ind, l in enumerate(lin):
-        if ind+start_ind not in inds:
+        if ind + start_ind not in inds:
             lout.append(l)
     return lout
 
@@ -359,6 +360,7 @@ def rotate_n_list_elements(lst, n):
                 old_lst = old_lst[1:] + old_lst[:1]
     return lst
 
+
 def linear_index_to_coordinate_tuples(linear_index, shape):
     if len(linear_index) > 0:
         coordinates_tuple = np.unravel_index(linear_index, shape)
@@ -382,8 +384,8 @@ def find_labels_inds(labels, keys, modefun="find", two_way_search=False, break_a
     for key in keys:
         for label in labels:
             if modefun(label, key):
-               inds.append(labels.index(label))
-               counts += 1
+                inds.append(labels.index(label))
+                counts += 1
             if counts >= break_after:
                 return inds
     return inds
@@ -807,4 +809,3 @@ def property_to_fun(property):
         return property
     else:
         return lambda *args, **kwargs: property
-

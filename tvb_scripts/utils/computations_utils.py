@@ -1,14 +1,13 @@
 # coding=utf-8
 # Some math tools
 from itertools import product
-from sklearn.cluster import AgglomerativeClustering
 
 import numpy as np
+from sklearn.cluster import AgglomerativeClustering
+from tvb.simulator.plot.config import CalculusConfig, FiguresConfig
 
-from tvb_scripts.config import FiguresConfig, CalculusConfig
-from tvb_scripts.utils.log_error_utils import initialize_logger, warning
 from tvb_scripts.utils.data_structures_utils import is_integer
-
+from tvb_scripts.utils.log_error_utils import initialize_logger, warning
 
 logger = initialize_logger(__name__)
 
@@ -84,7 +83,7 @@ def select_greater_values_array_inds(values, threshold=None, percentile=None, nv
 
 def select_greater_values_2Darray_inds(values, threshold=None, percentile=None, nvals=None, verbose=False):
     return np.unravel_index(
-                select_greater_values_array_inds(values.flatten(), threshold, percentile, nvals, verbose), values.shape)
+        select_greater_values_array_inds(values.flatten(), threshold, percentile, nvals, verbose), values.shape)
 
 
 def select_by_hierarchical_group_metric_clustering(distance, disconnectivity=np.array([]), metric=None,
@@ -102,10 +101,10 @@ def select_by_hierarchical_group_metric_clustering(distance, disconnectivity=np.
         # ... at least members_per_group elements...
         n_select = np.minimum(members_per_group, len(cluster_inds))
         if metric is not None and len(metric) == distance.shape[0]:
-            #...optionally according to some metric
+            # ...optionally according to some metric
             inds_select = np.argsort(metric[cluster_inds])[-n_select:]
         else:
-            #...otherwise, randomly
+            # ...otherwise, randomly
             inds_select = range(n_select)
         selection.append(cluster_inds[inds_select])
     return np.unique(np.hstack(selection)).tolist()
@@ -187,7 +186,7 @@ def curve_elbow_point(vals, interactive=CalculusConfig.INTERACTIVE_ELBOW_POINT):
 def spikes_events_to_time_index(spike_time, time):
     if spike_time < time[0] or spike_time > time[-1]:
         warning("Spike time is outside the input time vector!")
-    return np.argmin(np.abs(time-spike_time))
+    return np.argmin(np.abs(time - spike_time))
 
 
 def compute_spikes_counts(spikes_times, time):

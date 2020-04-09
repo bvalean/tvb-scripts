@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 
-from six import string_types
-from enum import Enum
 from copy import deepcopy
+from enum import Enum
 
 import numpy
-from tvb_scripts.utils.log_error_utils import initialize_logger, warning
-from tvb_scripts.utils.data_structures_utils import ensure_list, is_integer, monopolar_to_bipolar
+from six import string_types
 from tvb.basic.neotraits.api import List, Attr
 from tvb.basic.profile import TvbProfile
+from tvb.datatypes.sensors import Sensors, SensorsEEG, SensorsMEG, SensorsInternal
 from tvb.datatypes.time_series import TimeSeries as TimeSeriesTVB
-from tvb.datatypes.time_series import TimeSeriesRegion as TimeSeriesRegionTVB
 from tvb.datatypes.time_series import TimeSeriesEEG as TimeSeriesEEGTVB
 from tvb.datatypes.time_series import TimeSeriesMEG as TimeSeriesMEGTVB
+from tvb.datatypes.time_series import TimeSeriesRegion as TimeSeriesRegionTVB
 from tvb.datatypes.time_series import TimeSeriesSEEG as TimeSeriesSEEGTVB
 from tvb.datatypes.time_series import TimeSeriesSurface as TimeSeriesSurfaceTVB
 from tvb.datatypes.time_series import TimeSeriesVolume as TimeSeriesVolumeTVB
-from tvb.datatypes.sensors import Sensors, SensorsEEG, SensorsMEG, SensorsInternal
+
+from tvb_scripts.utils.data_structures_utils import ensure_list, is_integer, monopolar_to_bipolar
+from tvb_scripts.utils.log_error_utils import initialize_logger, warning
 
 TvbProfile.set_profile(TvbProfile.LIBRARY_PROFILE)
 
@@ -252,16 +253,16 @@ class TimeSeries(TimeSeriesTVB):
     def slice_data_across_dimension_by_label(self, labels, dimension, **kwargs):
         dim_index = self.get_dimension_index(dimension)
         return self.slice_data_across_dimension_by_index(
-                    self._get_index_of_label(labels,
-                                             self.get_dimension_name(dim_index)),
-                    dim_index, **kwargs)
+            self._get_index_of_label(labels,
+                                     self.get_dimension_name(dim_index)),
+            dim_index, **kwargs)
 
     def slice_data_across_dimension_by_slice(self, slice_arg, dimension, **kwargs):
         dim_index = self.get_dimension_index(dimension)
         return self.slice_data_across_dimension_by_index(
-                    self._slice_to_indices(
-                        self._process_slice(slice_arg, dim_index), dim_index),
-                    dim_index, **kwargs)
+            self._slice_to_indices(
+                self._process_slice(slice_arg, dim_index), dim_index),
+            dim_index, **kwargs)
 
     def _index_or_label_or_slice(self, inputs):
         inputs = ensure_list(inputs)
@@ -588,7 +589,6 @@ TimeSeriesDict = {TimeSeries.__name__: TimeSeries,
                   TimeSeriesEEG.__name__: TimeSeriesEEG,
                   TimeSeriesMEG.__name__: TimeSeriesMEG,
                   TimeSeriesSEEG.__name__: TimeSeriesSEEG}
-
 
 if __name__ == "__main__":
     kwargs = {"data": numpy.ones((4, 2, 10, 1)), "start_time": 0.0,

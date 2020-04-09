@@ -1,17 +1,17 @@
 # coding=utf-8
 
-from six import string_types
 from collections import OrderedDict
 
-from tvb_scripts.utils.log_error_utils import initialize_logger, raise_value_error, warning
-from tvb_scripts.utils.data_structures_utils import isequal_string, is_integer
+from six import string_types
+from tvb.datatypes.cortex import Cortex
+from tvb.datatypes.projections import ProjectionMatrix
+from tvb.datatypes.sensors import Sensors
+from tvb.datatypes.surfaces import CorticalSurface
+
 from tvb_scripts.datatypes.connectivity import Connectivity
 from tvb_scripts.datatypes.sensors import SensorTypes, SensorTypesNames, SensorTypesToProjectionDict
-
-from tvb.datatypes.surfaces import CorticalSurface
-from tvb.datatypes.cortex import Cortex
-from tvb.datatypes.sensors import Sensors
-from tvb.datatypes.projections import ProjectionMatrix
+from tvb_scripts.utils.data_structures_utils import isequal_string, is_integer
+from tvb_scripts.utils.log_error_utils import initialize_logger, raise_value_error, warning
 
 
 class Head(object):

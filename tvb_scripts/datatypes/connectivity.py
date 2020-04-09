@@ -1,7 +1,8 @@
 # coding=utf-8
 
-from tvb_scripts.datatypes.base import BaseModel
 from tvb.datatypes.connectivity import Connectivity as TVBConnectivity
+
+from tvb_scripts.datatypes.base import BaseModel
 
 
 class ConnectivityH5Field(object):
@@ -30,4 +31,4 @@ class Connectivity(TVBConnectivity, BaseModel):
 
     # A usefull method for addressing subsets of the connectome by label:
     def get_regions_inds_by_labels(self, labels):
-        return  self.labels2inds(self.region_labels, labels)
+        return self.labels2inds(self.region_labels, labels)

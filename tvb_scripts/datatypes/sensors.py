@@ -2,21 +2,20 @@
 from enum import Enum
 
 import numpy as np
-
-from tvb_scripts.utils.log_error_utils import warning
-from tvb_scripts.utils.data_structures_utils import ensure_list, \
-    labels_to_inds, monopolar_to_bipolar, split_string_text_numbers
-from tvb_scripts.datatypes.base import BaseModel
-
 from tvb.basic.neotraits.api import Attr, NArray
-from tvb.datatypes.sensors import Sensors as TVBSensors
-from tvb.datatypes.sensors import SensorsEEG as TVBSensorsEEG
-from tvb.datatypes.sensors import SensorsMEG as TVBSensorsMEG
-from tvb.datatypes.sensors import SensorsInternal as TVBSensorsInternal
-from tvb.datatypes.sensors import EEG_POLYMORPHIC_IDENTITY, MEG_POLYMORPHIC_IDENTITY, \
-    INTERNAL_POLYMORPHIC_IDENTITY
 from tvb.datatypes.projections import \
     ProjectionSurfaceEEG, ProjectionSurfaceMEG, ProjectionSurfaceSEEG
+from tvb.datatypes.sensors import EEG_POLYMORPHIC_IDENTITY, MEG_POLYMORPHIC_IDENTITY, \
+    INTERNAL_POLYMORPHIC_IDENTITY
+from tvb.datatypes.sensors import Sensors as TVBSensors
+from tvb.datatypes.sensors import SensorsEEG as TVBSensorsEEG
+from tvb.datatypes.sensors import SensorsInternal as TVBSensorsInternal
+from tvb.datatypes.sensors import SensorsMEG as TVBSensorsMEG
+
+from tvb_scripts.datatypes.base import BaseModel
+from tvb_scripts.utils.data_structures_utils import ensure_list, \
+    labels_to_inds, monopolar_to_bipolar, split_string_text_numbers
+from tvb_scripts.utils.log_error_utils import warning
 
 
 class SensorTypes(Enum):
@@ -27,7 +26,6 @@ class SensorTypes(Enum):
 
 
 SensorTypesNames = [getattr(SensorTypes, stype).value for stype in SensorTypes.__members__]
-
 
 SensorTypesToProjectionDict = {"EEG": ProjectionSurfaceEEG,
                                "MEG": ProjectionSurfaceMEG,
@@ -51,8 +49,8 @@ class Sensors(TVBSensors, BaseModel):
 
     def configure(self, remove_leading_zeros_from_labels=False):
         if len(self.labels) > 0:
-                if remove_leading_zeros_from_labels:
-                    self.remove_leading_zeros_from_labels()
+            if remove_leading_zeros_from_labels:
+                self.remove_leading_zeros_from_labels()
         self.configure()
 
     def sensor_label_to_index(self, labels):
@@ -86,7 +84,7 @@ class Sensors(TVBSensors, BaseModel):
 
 
 class SensorsEEG(Sensors, TVBSensorsEEG):
-   pass
+    pass
 
 
 class SensorsMEG(Sensors, TVBSensorsMEG):

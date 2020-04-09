@@ -35,11 +35,13 @@ The TimeSeries datatypes.
 
 """
 from copy import deepcopy
-from six import string_types
-import xarray as xr
+
 import numpy as np
-from tvb.datatypes import sensors, surfaces, volumes, region_mapping, connectivity
+import xarray as xr
+from six import string_types
 from tvb.basic.neotraits.api import HasTraits, Attr, List, narray_summary_info
+from tvb.datatypes import sensors, surfaces, volumes, region_mapping, connectivity
+
 from tvb_scripts.datatypes.time_series import TimeSeries as TimeSeriesTVB
 from tvb_scripts.utils.data_structures_utils import is_integer
 
@@ -358,7 +360,7 @@ class TimeSeries(HasTraits):
 
     def _assert_array_indices(self, slice_tuple):
         if is_integer(slice_tuple) or isinstance(slice_tuple, string_types):
-            return ([slice_tuple], )
+            return ([slice_tuple],)
         else:
             if isinstance(slice_tuple, slice):
                 slice_tuple = (slice_tuple,)
@@ -547,9 +549,9 @@ class TimeSeries(HasTraits):
                 outputs.append(self[:, var].plot_timeseries(**kwargs))
             return outputs
         if np.any([s < 2 for s in self.shape[1:]]):
-            if self.shape[1] == 1:   # only one variable
+            if self.shape[1] == 1:  # only one variable
                 figname = kwargs.pop("figname", "%s" % (self.title + "Time Series")) + ": " \
-                              + self.labels_dimensions[self.labels_ordering[1]][0]
+                          + self.labels_dimensions[self.labels_ordering[1]][0]
                 kwargs["figname"] = figname
             return self.plot_line(**kwargs)
         else:

@@ -1,11 +1,12 @@
 # coding=utf-8
 # Logs and errors
 
+import logging
 import os
 import sys
-import logging
 from logging.handlers import TimedRotatingFileHandler
-from tvb_scripts.config import OutputConfig
+
+from tvb.simulator.plot.config import OutputConfig
 
 
 def initialize_logger(name, target_folder=OutputConfig().FOLDER_LOGS):

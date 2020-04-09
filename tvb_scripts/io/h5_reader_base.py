@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import os
+
 import h5py
 
-from tvb_scripts.utils.log_error_utils import initialize_logger
 from tvb_scripts.io.h5_writer import H5Writer
+from tvb_scripts.utils.log_error_utils import initialize_logger
 
 
 class H5ReaderBase(object):
@@ -33,6 +34,7 @@ class H5ReaderBase(object):
 
 
 class H5GroupHandlers(object):
+    H5_SUBTYPE_ATTRIBUTE = H5Writer().H5_SUBTYPE_ATTRIBUTE
 
     def read_dictionary_from_group(self, group, type=None):
         dictionary = dict()
@@ -41,6 +43,6 @@ class H5GroupHandlers(object):
         for attr in group.attrs.keys():
             dictionary.update({attr: group.attrs[attr]})
         if type is None:
-            type = group.attrs[H5_SUBTYPE_ATTRIBUTE]
+            type = group.attrs[self.H5_SUBTYPE_ATTRIBUTE]
         else:
             return dictionary

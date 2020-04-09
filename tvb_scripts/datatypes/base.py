@@ -1,7 +1,9 @@
 from copy import deepcopy
-from tvb_scripts.utils.log_error_utils import warning
+
+from tvb.basic.neotraits.api import HasTraits
+
 from tvb_scripts.utils.data_structures_utils import labels_to_inds
-from tvb.basic.neotraits.api import HasTraits, Attr
+from tvb_scripts.utils.log_error_utils import warning
 
 
 class BaseModel(HasTraits):
@@ -40,4 +42,3 @@ class BaseModel(HasTraits):
     @staticmethod
     def labels2inds(all_labels, labels):
         return labels_to_inds(all_labels, labels)
-

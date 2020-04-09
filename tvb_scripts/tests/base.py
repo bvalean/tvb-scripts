@@ -2,7 +2,8 @@
 
 import os
 import numpy
-from tvb_scripts.config import Config
+from tvb.simulator.plot.config import Config
+
 from tvb_scripts.io.h5_reader import H5Reader
 from tvb_scripts.datatypes.connectivity import Connectivity
 from tvb_scripts.datatypes.sensors import Sensors

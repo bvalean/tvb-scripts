@@ -1,17 +1,17 @@
 # coding=utf-8
 
 import numpy as np
-
-from tvb_scripts.datatypes.base import BaseModel
 from tvb.basic.neotraits.api import NArray, Attr
-from tvb.datatypes.surfaces import Surface as TVBSurface
-from tvb.datatypes.surfaces import WhiteMatterSurface as TVBWhiteMatterSurface
-from tvb.datatypes.surfaces import CorticalSurface as TVBCorticalSurface
-from tvb.datatypes.surfaces import SkinAir as TVBSkinAir
 from tvb.datatypes.surfaces import BrainSkull as TVBBrainSkull
-from tvb.datatypes.surfaces import SkullSkin as TVBSkullSkin
+from tvb.datatypes.surfaces import CorticalSurface as TVBCorticalSurface
 from tvb.datatypes.surfaces import EEGCap as TVBEEGCap
 from tvb.datatypes.surfaces import FaceSurface as TVBFaceSurface
+from tvb.datatypes.surfaces import SkinAir as TVBSkinAir
+from tvb.datatypes.surfaces import SkullSkin as TVBSkullSkin
+from tvb.datatypes.surfaces import Surface as TVBSurface
+from tvb.datatypes.surfaces import WhiteMatterSurface as TVBWhiteMatterSurface
+
+from tvb_scripts.datatypes.base import BaseModel
 
 
 class SurfaceH5Field(object):
@@ -23,7 +23,6 @@ class SurfaceH5Field(object):
 
 
 class Surface(TVBSurface, BaseModel):
-
     vox2ras = NArray(
         dtype=np.float,
         label="vox2ras", default=None, required=False,
@@ -52,9 +51,9 @@ class Surface(TVBSurface, BaseModel):
         return vertex_areas
 
     def add_vertices_and_triangles(self, new_vertices, new_triangles,
-                                   new_vertex_normals=np.array([]),  new_triangle_normals=np.array([])):
+                                   new_vertex_normals=np.array([]), new_triangle_normals=np.array([])):
         self.triangles = np.array(self.triangles.tolist() +
-                                       (new_triangles + self.number_of_vertices).tolist())
+                                  (new_triangles + self.number_of_vertices).tolist())
         self.vertices = np.array(self.vertices.tolist() + new_vertices.tolist())
         self.vertex_normals = np.array(self.vertex_normals.tolist() + new_vertex_normals.tolist())
         self.triangle_normals = np.array(self.triangle_normals.tolist() + new_triangle_normals.tolist())
